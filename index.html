@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossos Links - Empresa XYZ</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, white 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        
+
+
+        /* Título da página */
+        h1 {
+            color: white;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        /* Container dos blocos */
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            justify-content: center;
+            max-width: 1200px;
+        }
+
+        /* Cada bloco */
+        .card {
+            background: white;
+            width: 450px;
+            height: 120px;
+            border-radius: 20px;
+            border: 2px solid black !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 20px;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .card img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+
+        .card span {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Responsivo para celular */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .card {
+                width: 90%;
+                height: 220px;
+            }
+            .card img {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+     <!-- NOVO: Logótipo da Empresa -->
+    <!-- Substitua o 'src' abaixo pelo URL do seu logótipo -->
+   <!-- Logótipo da Empresa (mantido) -->
+<img src="MIAD LOGO ONLY NO WRITINGS.png" alt="Logótipo da Empresa XYZ" style="width: 180px; height: 180px; margin-bottom: 1px; border-radius: 5%; object-fit: cover;">
+
+    <h1> Nossos Canais</h1>
+
+    <div class="container flex flex-col gap-2 w-full max-w-lg mx-auto">
+        
+
+             <!-- WHATSAPP -->
+        <a href="https://wa.me/+258879528500" class="card" target="_blank">
+            <img src="https://img.icons8.com/fluency/100/000000/whatsapp.png" alt="WhatsApp">
+            <span>WHATSAPP</span>
+        </a>
+
+              <!-- INSTAGRAM -->
+        <a href="https://www.instagram.com/miad_tech/" class="card" target="_blank">
+            <img src="https://img.icons8.com/fluency/100/000000/instagram-new.png" alt="Instagram">
+           <Span>INSTAGRAM</Span> 
+        </a>
+
+        <!-- E-MAIL -->
+       <!-- E-MAIL -->
+<a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=CllgCJlFDFNWNZsNpZLBwtKmSXXZvwBPnPSTlnGWKFsWRcQdfRwvVBSgLbFKJsKpmWDXLXpPXqB" class="card">
+    <img src="https://img.icons8.com/color/100/000000/gmail-new.png" alt="E-mail">
+    <span>E-MAIL</span>
+</a>
+
+  
+
+        <!-- FACEBOOK -->
+        <a href="https://www.facebook.com/profile.php?id=61552595984519" class="card" target="_blank">
+            <img src="https://img.icons8.com/fluency/100/000000/facebook-new.png" alt="Facebook">
+            <span>FACEBOOK</span>
+        </a>
+
+   
+
+        <!-- LINKEDIN -->
+        <a href="https://www.linkedin.com/in/miad-tech-46806b399/" class="card" target="_blank">
+            <img src="https://img.icons8.com/fluency/100/000000/linkedin.png" alt="LinkedIn">
+            <span>LINKEDIN</span>
+        </a>
+
+    </div>
+
+</body>
+</html>
