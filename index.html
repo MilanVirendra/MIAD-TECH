@@ -20,7 +20,36 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(139, 92, 246, 0.1);
         }
-        /* CORREÇÃO DO ACORDIAO: Fecho Totalmente Limpo */
+
+        section {
+    scroll-margin-top: 5rem; /* 80px - Ajusta conforme a altura da tua Nav */
+}
+
+/* Se tiveres IDs em divs que não são sections, adiciona também: */
+[id] {
+    scroll-margin-top: 5rem;
+}
+
+ @keyframes marquee-infinite {
+    from { transform: translateX(0); }
+    to { transform: translateX(-33.333%); }
+}
+
+.marquee-wrapper {
+    display: flex;
+    width: max-content; /* Força a linha a ser ultra larga */
+    flex-wrap: nowrap;  /* Impede que os logos quebrem para a linha de baixo */
+    animation: marquee-infinite 30s linear infinite;
+}
+
+/* Esta classe é para o contentor que guarda o wrapper */
+.marquee-mask {
+    overflow: hidden;
+    display: flex; /* Garante que o wrapper seja lido corretamente */
+    width: 100%;
+}
+
+/* CORREÇÃO DO ACORDIAO: Fecho Totalmente Limpo */
         .accordion-content {
             max-height: 0;
             overflow: hidden;
@@ -40,59 +69,90 @@
 </head>
 <body class="bg-[#0a0510] text-gray-100 antialiased bg-mesh">
 
-    <nav class="fixed w-full z-50 bg-[#0a0510]/90 backdrop-blur-md border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <img src="MIAD LOGO ONLY NO WRITINGS.png" alt="MIADTECH Logo" class="h-10 w-auto">
-                <div class="text-xl font-bold tracking-tighter text-violet-500">
-                    MIAD<span class="text-white">TECH</span>
-                </div>
-            </div>
-            <button id="menu-btn" class="text-white focus:outline-none md:hidden">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-            <div class="hidden md:flex items-center space-x-8 text-sm font-medium uppercase tracking-widest text-gray-400">
-                <a href="#about" class="hover:text-violet-400 transition">Sobre</a>
-                <a href="#b2c" class="hover:text-violet-400 transition">Residencial</a>
-                <a href="#b2b" class="hover:text-violet-400 transition">Empresarial</a>
-                <a href="#contact" class="text-violet-400 font-semibold border-l border-white/10 pl-8">Contacto</a>
+ <nav class="fixed w-full z-50 bg-[#0a0510]/95 backdrop-blur-lg border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 flex flex-col justify-center gap-1">
+        
+        <div class="flex justify-start items-center">
+            <div class="flex items-center gap-2">
+                <img src="MIAD LOGO ONLY NO WRITINGS.png" alt="MIADTECH" class="h-5 md:h-11 w-auto object-contain">
+                <div class="text-sm md:text-xl font-bold tracking-tighter text-violet-500">MIAD<span class="text-white">TECH</span></div>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden bg-[#0a0510] border-b border-white/10 flex flex-col p-6 space-y-4 md:hidden">
-            <a href="#about" class="text-gray-300 text-lg py-2 border-b border-white/5" onclick="toggleMenu()">Sobre Nós</a>
-            <a href="#b2c" class="text-gray-300 text-lg py-2 border-b border-white/5" onclick="toggleMenu()">Soluções Domésticas</a>
-            <a href="#b2b" class="text-gray-300 text-lg py-2 border-b border-white/5" onclick="toggleMenu()">Soluções Empresariais</a>
-            <a href="#contact" class="text-violet-400 text-lg py-2 font-bold" onclick="toggleMenu()">Contactar Agora</a>
+        
+        <div class="flex justify-end items-center space-x-3 md:space-x-8 text-[9px] md:text-xs font-semibold uppercase tracking-widest text-gray-400">
+            <a href="#about" class="hover:text-violet-400 transition">Sobre</a>
+            <a href="#b2c" class="hover:text-violet-400 transition">B2C</a>
+            <a href="#b2b" class="hover:text-violet-400 transition">B2B</a>
+            <a href="#contact" class="text-violet-400 border-l border-white/10 pl-3 md:pl-8 hover:text-white transition">Contacto</a>
         </div>
-    </nav>
 
-    <header class="relative min-h-screen flex items-center pt-20 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 text-center lg:text-left grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-                <span class="inline-block py-1 px-3 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs font-bold uppercase tracking-widest mb-6">Excelência em Conectividade em Moçambique</span>
-                <h1 class="text-4xl md:text-7xl font-bold leading-tight mb-6">Soluções de <span class="text-violet-500">Rede</span> Fiáveis.</h1>
-                <p class="text-lg text-gray-400 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">Especialistas na venda e instalação de infraestrutura tecnológica. A sua segurança é a nossa prioridade absoluta.</p>
-                <div class="flex justify-center lg:justify-start">
-                    <a href="#contact" class="bg-violet-600 hover:bg-violet-700 text-white px-10 py-4 rounded-xl font-bold transition-all shadow-lg shadow-violet-600/20 active:scale-95">Começar Agora</a>
-                </div>
-            </div>
-            <div class="relative hidden lg:block">
-                <div class="absolute -inset-4 bg-violet-500/20 blur-3xl rounded-full"></div>
-                <div class="glass-card p-8 rounded-3xl relative">
-                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=800" alt="Hardware" class="rounded-xl opacity-80">
-                </div>
-            </div>
-        </div>
-    </header>
+    </div>
+</nav>
 
-    <section id="about" class="py-24 border-t border-white/5">
+<header class="relative min-h-[45vh] md:min-h-screen flex items-center pt-20 overflow-hidden">
+    <div class="absolute top-1/4 -left-20 w-64 h-64 md:w-96 md:h-96 bg-violet-600/20 blur-[80px] md:blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
+        <div class="flex flex-row items-center gap-4 md:gap-12">
+            
+            <div class="w-3/5 lg:w-1/2 text-left">
+              <span class="inline-flex items-center gap-2 py-1 px-3 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[8px] md:text-xs font-bold uppercase tracking-[0.2em] mb-4 md:mb-8 animate-[pulse_3s_infinite] shadow-[0_0_15px_rgba(139,92,246,0.1)]">
+    <span class="relative flex h-1.5 w-1.5 md:h-2 md:w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-1.5 w-1.5 md:h-2 md:w-2 bg-violet-500"></span>
+    </span>
+    MIAD TECH • 2026
+</span>
+                
+                <h1 class="text-xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 md:mb-6 tracking-tight">
+                    Redes <span class="text-violet-500">Fiáveis</span>
+                </h1>
+                
+                <p class="text-[11px] sm:text-sm md:text-lg text-gray-400 mb-6 md:mb-10 max-w-md leading-relaxed font-light line-clamp-3 md:line-clamp-none">
+                    Instalação profissional de Starlink e CCTV em Maputo. A sua segurança é prioridade.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <a href="#contact" class="bg-violet-600 hover:bg-violet-700 text-white text-[14px] md:text-base px-2 md:px-3 py-3 md:py-4 rounded-xl font-bold transition-all shadow-lg shadow-violet-600/20 active:scale-95 text-center">
+                        Contactar
+                    </a>
+ 
+                </div>
+            </div>
+
+            <div class="w-2/5 lg:w-1/2 relative">
+                <div class="absolute -inset-2 md:-inset-4 bg-violet-500/20 blur-2xl rounded-full opacity-50"></div>
+                
+                <div class="glass-card p-1.5 md:p-6 rounded-2xl md:rounded-[2.5rem] relative">
+                    <div class="relative overflow-hidden rounded-xl md:rounded-[2rem]">
+                        <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=800" 
+                             alt="Hardware" 
+                             class="w-full h-[180px] sm:h-[300px] md:h-[500px] object-cover opacity-90">
+                        
+                        <div class="absolute bottom-2 left-2 right-2 md:bottom-6 md:left-6 glass-card p-1.5 md:p-3 rounded-lg border-white/10 backdrop-blur-md">
+                            <div class="flex items-center gap-1.5 md:gap-3">
+                                <span class="relative flex h-1.5 w-1.5 md:h-2 md:w-2">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-1.5 w-1.5 md:h-2 md:w-2 bg-green-500"></span>
+                                </span>
+                                <span class="text-[7px] md:text-[10px] font-bold uppercase tracking-tighter text-white/90">Online</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</header>
+    <section id="about" class="py-120 border-t border-white/5">
         <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-3xl font-bold mb-6">Sobre a MIAD TECH</h2>
+            <h2 class="text-3xl font-bold mb-6">Sobre Nos</h2>
             <p class="text-xl text-gray-400 leading-relaxed">A MIAD TECH é líder no fornecimento de infraestrutura de rede e soluções de conectividade em Moçambique. Especializamo-nos na venda e instalação profissional de hardware de classe mundial.</p>
         </div>
     </section>
 
-    <section id="b2c" class="py-24 bg-[#0d071a]/50">
+    <section id="b2c" class="py-12 bg-[#0d071a]/50">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
                 <h2 class="text-violet-500 font-bold uppercase tracking-widest text-sm mb-2">Venda a Retalho</h2>
@@ -119,81 +179,189 @@
         </div>
     </section>
 
-    <section id="b2b" class="py-24 bg-[#0d071a] border-y border-white/5">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center lg:text-left mb-12">
-                <h2 class="text-violet-400 font-bold uppercase tracking-widest text-sm mb-2">Corporativo</h2>
-                <h3 class="text-3xl font-bold mb-4">Soluções Empresariais e Revenda</h3>
-                <p class="text-gray-400 text-sm italic">Explore os nossos serviços especializados:</p>
-            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="accordion-item glass-card rounded-2xl overflow-hidden cursor-pointer" onclick="toggleAccordion(this)">
-                    <div class="p-6 flex items-center justify-between transition hover:bg-white/5">
-                        <h4 class="font-bold text-gray-200 text-left leading-snug">Hardware em Volume</h4>
-                        <i class="fa-solid fa-chevron-right chevron-icon text-violet-500 transition-transform duration-300"></i>
-                    </div>
-                    <div class="accordion-content px-6">
-                        <p class="text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">Disponibilizamos equipamentos de rede em grandes quantidades para revendedores e integradores, garantindo qualidade e preços competitivos.</p>
-                    </div>
-                </div>
-
-                <div class="accordion-item glass-card rounded-2xl overflow-hidden cursor-pointer" onclick="toggleAccordion(this)">
-                    <div class="p-6 flex items-center justify-between transition hover:bg-white/5">
-                        <h4 class="font-bold text-gray-200 text-left leading-snug">Redes Estruturadas</h4>
-                        <i class="fa-solid fa-chevron-right chevron-icon text-violet-500 transition-transform duration-300"></i>
-                    </div>
-                    <div class="accordion-content px-6">
-                        <p class="text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">Planeamento e implementação de cablagem estruturada, racks e configuração de redes seguras para escritórios e armazéns.</p>
-                    </div>
-                </div>
-
-                <div class="accordion-item glass-card rounded-2xl overflow-hidden cursor-pointer" onclick="toggleAccordion(this)">
-                    <div class="p-6 flex items-center justify-between transition hover:bg-white/5">
-                        <h4 class="font-bold text-gray-200 text-left leading-snug">Manutenção Estratégica</h4>
-                        <i class="fa-solid fa-chevron-right chevron-icon text-violet-500 transition-transform duration-300"></i>
-                    </div>
-                    <div class="accordion-content px-6">
-                        <p class="text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">Parcerias para manutenção preventiva e correctiva, assegurando a estabilidade contínua dos sistemas tecnológicos da sua empresa.</p>
-                    </div>
-                </div>
-
-                <div class="accordion-item glass-card rounded-2xl overflow-hidden cursor-pointer" onclick="toggleAccordion(this)">
-                    <div class="p-6 flex items-center justify-between transition hover:bg-white/5">
-                        <h4 class="font-bold text-gray-200 text-left leading-snug">Videovigilância (CCTV)</h4>
-                        <i class="fa-solid fa-chevron-right chevron-icon text-violet-500 transition-transform duration-300"></i>
-                    </div>
-                    <div class="accordion-content px-6">
-                        <p class="text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">Instalação de sistemas profissionais com câmaras de alta definição, gravadores NVR e monitorização remota 24/7.</p>
-                    </div>
-                </div>
-
-                <div class="accordion-item md:col-span-2 glass-card rounded-2xl overflow-hidden cursor-pointer" onclick="toggleAccordion(this)">
-                    <div class="p-6 flex items-center justify-between transition hover:bg-white/5">
-                        <h4 class="font-bold text-gray-200 text-left leading-snug">Segurança e Controlo de Acesso</h4>
-                        <i class="fa-solid fa-chevron-right chevron-icon text-violet-500 transition-transform duration-300"></i>
-                    </div>
-                    <div class="accordion-content px-6">
-                        <p class="text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">Leitores biométricos, intercomunicadores e cartões RFID para proteger e gerir o acesso às suas instalações corporativas.</p>
-                    </div>
-                </div>
-            </div>
+    <div class="py-10 bg-[#0a0510]/50 border-y border-white/5 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 mb-6 text-center lg:text-left">
+        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-500">Parceiros & Hardware</span>
+    </div>
+    
+   <div class="marquee-mask overflow-hidden py-12 bg-[#0a0510] border-y border-white/5">
+    
+    <div class="marquee-wrapper">
+        <div class="flex items-center gap-12 md:gap-24 px-6 md:px-12">
+            <img src="UBIQUITI LOGO.png" class="h-10 md:h-12  hover:opacity-100 transition">
+            <img src="HIKVISION LOGO OFICIAL.png" class="h-10 md:h-12  hover:opacity-100 transition">
+            <img src="UNV LOGO OFFICIAL.png" class="h-10 md:h-12  hover:opacity-100 transition">
+            <img src="TENDA ORANGE LOGO.png" class="h-10 md:h-12  hover:opacity-100 transition">
+            <img src="CUDY BLUE LOGO.png" class="h-10 md:h-12  hover:opacity-100 transition">
         </div>
-    </section>
 
-    <section id="contact" class="py-24">
+ <div class="flex items-center gap-12 md:gap-24 px-6 md:px-12">
+            <img src="UBIQUITI LOGO.png" class="h-10 md:h-12  hover:opacity-100 transition">
+            <img src="HIKVISION LOGO OFICIAL.png" class="h-10 md:h-12  hover:opacity-100 transition">
+            <img src="UNV LOGO OFFICIAL.png" class="h-10 md:h-12  hover:opacity-100 transition">
+            <img src="TENDA ORANGE LOGO.png" class="h-10 md:h-12  hover:opacity-100 transition">
+            <img src="CUDY BLUE LOGO.png" class="h-10 md:h-12  hover:opacity-100 transition">
+        </div>
+
+      <div class="flex items-center gap-12 md:gap-24 px-6 md:px-12">
+            <img src="UBIQUITI LOGO.png" class="h-10 md:h-12  hover:opacity-100 transition">
+            <img src="HIKVISION LOGO OFICIAL.png" class="h-10 md:h-12  hover:opacity-100 transition">
+            <img src="UNV LOGO OFFICIAL.png" class="h-10 md:h-12  hover:opacity-100 transition">
+            <img src="TENDA ORANGE LOGO.png" class="h-10 md:h-12  hover:opacity-100 transition">
+            <img src="CUDY BLUE LOGO.png" class="h-10 md:h-12  hover:opacity-100 transition">
+        </div>
+    </div>
+</div>
+
+
+   <section id="b2b" class="py-10 md:py-24 bg-[#0d071a] border-y border-white/5">
+    <div class="max-w-7xl mx-auto px-4 md:px-6">
+        
+        <div class="text-left mb-8 md:mb-12">
+            <h2 class="text-violet-500 font-bold uppercase tracking-widest text-[9px] md:text-sm mb-2">Serviços Corporativos</h2>
+            <h3 class="text-2xl md:text-4xl font-extrabold tracking-tight text-white">Soluções para Empresas</h3>
+        </div>
+
+        <div class="grid grid-cols-1 gap-3 md:gap-4">
+            
+            <div class="accordion-item glass-card rounded-xl md:rounded-[2.5rem] overflow-hidden cursor-pointer group" onclick="toggleAccordion(this)">
+                <div class="p-5 md:p-8 flex items-center justify-between transition hover:bg-white/5">
+                    <div class="flex items-center gap-3 md:gap-4">
+                        <span class="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-violet-600/20 flex items-center justify-center text-violet-400 font-bold text-[10px] md:text-xs">01</span>
+                        <h4 class="font-bold text-gray-200 text-sm md:text-xl">Hardware em Volume</h4>
+                    </div>
+                    <i class="fa-solid fa-chevron-right chevron-icon text-violet-500 text-xs md:text-base transition-transform duration-300"></i>
+                </div>
+                <div class="accordion-content">
+                    <div class="px-5 md:px-8 pb-6 md:pb-8 flex flex-row items-start gap-3 md:gap-8 border-t border-white/5 pt-5 md:pt-6">
+                        <div class="w-[60%] md:w-1/2">
+                            <p class="text-gray-400 text-[10px] md:text-base leading-relaxed mb-3 line-clamp-4 md:line-clamp-none">Fornecimento de hardware em larga escala para revendedores e integradores em Moçambique.</p>
+                            <ul class="text-[8px] md:text-xs text-violet-400 space-y-1 md:space-y-2 font-bold">
+                                <li><i class="fas fa-check-circle mr-1"></i> Preços de Revenda</li>
+                                <li><i class="fas fa-check-circle mr-1"></i> Stock Imediato</li>
+                            </ul>
+                        </div>
+                        <div class="w-[40%] md:w-1/2">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80&w=500" class="rounded-lg md:rounded-2xl w-full h-[100px] md:h-64 object-cover border border-white/10 shadow-lg shadow-violet-600/10">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item glass-card rounded-xl md:rounded-[2.5rem] overflow-hidden cursor-pointer group" onclick="toggleAccordion(this)">
+                <div class="p-5 md:p-8 flex items-center justify-between transition hover:bg-white/5">
+                    <div class="flex items-center gap-3 md:gap-4">
+                        <span class="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-violet-600/20 flex items-center justify-center text-violet-400 font-bold text-[10px] md:text-xs">02</span>
+                        <h4 class="font-bold text-gray-200 text-sm md:text-xl">Redes Estruturadas</h4>
+                    </div>
+                    <i class="fa-solid fa-chevron-right chevron-icon text-violet-500 text-xs md:text-base transition-transform duration-300"></i>
+                </div>
+                <div class="accordion-content">
+                    <div class="px-5 md:px-8 pb-6 md:pb-8 flex flex-row items-start gap-3 md:gap-8 border-t border-white/5 pt-5 md:pt-6">
+                        <div class="w-[60%] md:w-1/2">
+                            <p class="text-gray-400 text-[10px] md:text-base leading-relaxed mb-3 line-clamp-4 md:line-clamp-none">Planeamento de racks e cablagem CAT6/7 para garantir performance máxima.</p>
+                            <ul class="text-[8px] md:text-xs text-violet-400 space-y-1 md:space-y-2 font-bold">
+                                <li><i class="fas fa-check-circle mr-1"></i> Certificação de Pontos</li>
+                                <li><i class="fas fa-check-circle mr-1"></i> Organização Profissional</li>
+                            </ul>
+                        </div>
+                        <div class="w-[40%] md:w-1/2">
+                            <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=500" class="rounded-lg md:rounded-2xl w-full h-[100px] md:h-64 object-cover border border-white/10 shadow-lg shadow-violet-600/10">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item glass-card rounded-xl md:rounded-[2.5rem] overflow-hidden cursor-pointer group" onclick="toggleAccordion(this)">
+                <div class="p-5 md:p-8 flex items-center justify-between transition hover:bg-white/5">
+                    <div class="flex items-center gap-3 md:gap-4">
+                        <span class="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-violet-600/20 flex items-center justify-center text-violet-400 font-bold text-[10px] md:text-xs">03</span>
+                        <h4 class="font-bold text-gray-200 text-sm md:text-xl">Manutenção Estratégica</h4>
+                    </div>
+                    <i class="fa-solid fa-chevron-right chevron-icon text-violet-500 text-xs md:text-base transition-transform duration-300"></i>
+                </div>
+                <div class="accordion-content">
+                    <div class="px-5 md:px-8 pb-6 md:pb-8 flex flex-row items-start gap-3 md:gap-8 border-t border-white/5 pt-5 md:pt-6">
+                        <div class="w-[60%] md:w-1/2">
+                            <p class="text-gray-400 text-[10px] md:text-base leading-relaxed mb-3 line-clamp-4 md:line-clamp-none">Suporte proativo e auditorias de rede para zero tempo de inatividade.</p>
+                            <ul class="text-[8px] md:text-xs text-violet-400 space-y-1 md:space-y-2 font-bold">
+                                <li><i class="fas fa-check-circle mr-1"></i> SLA de Resposta Rápida</li>
+                                <li><i class="fas fa-check-circle mr-1"></i> Suporte Técnico 24/7</li>
+                            </ul>
+                        </div>
+                        <div class="w-[40%] md:w-1/2">
+                            <img src="https://images.unsplash.com/photo-1581092921461-eab62e92c73e?auto=format&fit=crop&q=80&w=500" class="rounded-lg md:rounded-2xl w-full h-[100px] md:h-64 object-cover border border-white/10 shadow-lg shadow-violet-600/10">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item glass-card rounded-xl md:rounded-[2.5rem] overflow-hidden cursor-pointer group" onclick="toggleAccordion(this)">
+                <div class="p-5 md:p-8 flex items-center justify-between transition hover:bg-white/5">
+                    <div class="flex items-center gap-3 md:gap-4">
+                        <span class="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-violet-600/20 flex items-center justify-center text-violet-400 font-bold text-[10px] md:text-xs">04</span>
+                        <h4 class="font-bold text-gray-200 text-sm md:text-xl">Videovigilância (CCTV)</h4>
+                    </div>
+                    <i class="fa-solid fa-chevron-right chevron-icon text-violet-500 text-xs md:text-base transition-transform duration-300"></i>
+                </div>
+                <div class="accordion-content">
+                    <div class="px-5 md:px-8 pb-6 md:pb-8 flex flex-row items-start gap-3 md:gap-8 border-t border-white/5 pt-5 md:pt-6">
+                        <div class="w-[60%] md:w-1/2">
+                            <p class="text-gray-400 text-[10px] md:text-base leading-relaxed mb-3 line-clamp-4 md:line-clamp-none">Câmaras IP inteligentes com monitorização remota e alta definição.</p>
+                            <ul class="text-[8px] md:text-xs text-violet-400 space-y-1 md:space-y-2 font-bold">
+                                <li><i class="fas fa-check-circle mr-1"></i> Visualização Mobile</li>
+                                <li><i class="fas fa-check-circle mr-1"></i> IA de Detecção</li>
+                            </ul>
+                        </div>
+                        <div class="w-[40%] md:w-1/2">
+                            <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&q=80&w=500" class="rounded-lg md:rounded-2xl w-full h-[100px] md:h-64 object-cover border border-white/10 shadow-lg shadow-violet-600/10">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item glass-card rounded-xl md:rounded-[2.5rem] overflow-hidden cursor-pointer group" onclick="toggleAccordion(this)">
+                <div class="p-5 md:p-8 flex items-center justify-between transition hover:bg-white/5">
+                    <div class="flex items-center gap-3 md:gap-4">
+                        <span class="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-violet-600/20 flex items-center justify-center text-violet-400 font-bold text-[10px] md:text-xs">05</span>
+                        <h4 class="font-bold text-gray-200 text-sm md:text-xl">Controlo de Acesso</h4>
+                    </div>
+                    <i class="fa-solid fa-chevron-right chevron-icon text-violet-500 text-xs md:text-base transition-transform duration-300"></i>
+                </div>
+                <div class="accordion-content">
+                    <div class="px-5 md:px-8 pb-6 md:pb-8 flex flex-row items-start gap-3 md:gap-8 border-t border-white/5 pt-5 md:pt-6">
+                        <div class="w-[60%] md:w-1/2">
+                            <p class="text-gray-400 text-[10px] md:text-base leading-relaxed mb-3 line-clamp-4 md:line-clamp-none">Sistemas biométricos e RFID para gestão inteligente de entradas.</p>
+                            <ul class="text-[8px] md:text-xs text-violet-400 space-y-1 md:space-y-2 font-bold">
+                                <li><i class="fas fa-check-circle mr-1"></i> Biometria & Facial</li>
+                                <li><i class="fas fa-check-circle mr-1"></i> Gestão de Assiduidade</li>
+                            </ul>
+                        </div>
+                        <div class="w-[40%] md:w-1/2">
+                            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=500" class="rounded-lg md:rounded-2xl w-full h-[100px] md:h-64 object-cover border border-white/10 shadow-lg shadow-violet-600/10">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+    <section id="contact" class="py-12">
         <div class="max-w-3xl mx-auto px-6">
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-bold mb-4">Contacte-nos</h2>
                 <div class="flex justify-center gap-4 mb-10">
-                    <a href="#" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i class="fab fa-tiktok"></i></a>
-                    <a href="#" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i class="fab fa-facebook-f"></i></a>
+                    <a href="www.tiktok.com/@miad.tecnologias" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i class="fab fa-tiktok"></i></a>
+                    <a href="" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61552595984519" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://www.instagram.com/miad_tech/" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i class="fab fa-instagram"></i></a>
                 </div>
                 <a href="https://wa.me/+258879528500" class="flex items-center justify-center gap-3 bg-green-600 hover:bg-green-700 text-white p-4 rounded-xl font-bold transition active:scale-95 shadow-lg shadow-green-600/20 mb-12"><i class="fab fa-whatsapp text-xl"></i> Falar via WhatsApp</a>
             </div>
-           <form action="https://formspree.io/f/mpqyanwg" method="POST" class="glass-card p-6 md:p-10 rounded-3xl space-y-6 text-left">
+           <form id="miad-form" action="https://formspree.io/f/mpqyanwg" method="POST" class="glass-card p-6 md:p-10 rounded-3xl space-y-6 text-left">
             <div id="form-status" class="hidden p-4 rounded-xl text-center font-bold mb-6"></div>
     <div class="space-y-2">
         <label class="text-xs uppercase tracking-widest text-gray-500 font-bold">Nome Completo</label>
@@ -207,7 +375,7 @@
         <label class="text-xs uppercase tracking-widest text-gray-500 font-bold">Mensagem</label>
         <textarea name="mensagem" rows="4" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-violet-500 outline-none transition text-white"></textarea>
     </div>
-    <button type="submit" id="submit" class="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-violet-600/20 active:scale-95">Enviar Mensagem</button>
+    <button type="submit-btn" id="submit" class="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-violet-600/20 active:scale-95">Enviar Mensagem</button>
 </form>
         </div>
     </section>
@@ -215,13 +383,6 @@
     <footer class="py-12 text-center text-gray-500 text-xs border-t border-white/5"><p>&copy; 2026 MIADTECH. Maputo, Moçambique.</p></footer>
 
     <script>
-  const menuBtn = document.getElementById('menu-btn');
-const mobileMenu = document.getElementById('mobile-menu');
-
-function toggleMenu() { 
-    mobileMenu.classList.toggle('hidden'); 
-}
-
 function toggleAccordion(element) { 
     element.classList.toggle('active'); 
 }
@@ -229,15 +390,15 @@ function toggleAccordion(element) {
 menuBtn.addEventListener('click', toggleMenu);
 
 // LÓGICA DE ENVIO SEM REDIRECIONAMENTO
-const form = document.getElementById("https://formspree.io/f/mpqyanwg");
+const form = document.getElementById("miad-form");
 const status = document.getElementById("form-status");
 const button = document.getElementById("submit");
 
 if (form) {
     form.addEventListener("submit", async function(event) {
         event.preventDefault(); 
-        btn.disabled = true;
-        btn.innerText = "A enviar...";
+        button.disabled = true;
+        button.innerText = "A enviar...";
         
         const data = new FormData(event.target);
         const response = await fetch(event.target.action, {
@@ -251,15 +412,15 @@ if (form) {
             status.classList.remove("hidden", "bg-red-500/20", "text-red-400");
             status.classList.add("bg-green-500/20", "text-green-400");
             form.reset(); 
-            btn.innerText = "Enviar Mensagem";
-            btn.disabled = false;
+            button.innerText = "Enviar Mensagem";
+            button.disabled = false;
         } else {
-            status.innerText = "Erro ao enviar. Tente novamente via WhatsApp.";
+            status.innerText = "Verifique se o E-mail foi inserido correctamente ou tente novamente. Caso o problema persista, contacte-nos pelo WhatsApp.";
             status.classList.remove("hidden", "bg-green-500/20", "text-green-400");
             status.classList.add("bg-red-500/20", "text-red-400");
-            btn.disabled = false;
-            btn.innerText = "Tentar Novamente";
-        }
+            button.disabled = false;
+            button.innerText = "Tentar Novamente";
+        } 
     });
 }
     </script>
