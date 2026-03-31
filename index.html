@@ -21,15 +21,6 @@
             border: 1px solid rgba(139, 92, 246, 0.1);
         }
 
-        section {
-    scroll-margin-top: 5rem; /* 80px - Ajusta conforme a altura da tua Nav */
-}
-
-/* Se tiveres IDs em divs que não são sections, adiciona também: */
-[id] {
-    scroll-margin-top: 5rem;
-}
-
  @keyframes marquee-infinite {
     from { transform: translateX(0); }
     to { transform: translateX(-33.333%); }
@@ -69,23 +60,30 @@
 </head>
 <body class="bg-[#0a0510] text-gray-100 antialiased bg-mesh">
 
- <nav class="fixed w-full z-50 bg-[#0a0510]/95 backdrop-blur-lg border-b border-white/5">
-    <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 flex flex-col justify-center gap-1">
-        
-        <div class="flex justify-start items-center">
-            <div class="flex items-center gap-2">
-                <img src="MIAD LOGO ONLY NO WRITINGS.png" alt="MIADTECH" class="h-5 md:h-11 w-auto object-contain">
-                <div class="text-sm md:text-xl font-bold tracking-tighter text-violet-500">MIAD<span class="text-white">TECH</span></div>
-            </div>
+  <nav class="fixed w-full z-50 bg-[#0a0510]/95 backdrop-blur-lg border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <img src="MIAD LOGO ONLY NO WRITINGS.png" alt="MIADTECH" class="h-9 md:h-11 w-auto object-contain">
+            <div class="text-xl font-bold tracking-tighter text-violet-500">MIAD<span class="text-white">TECH</span></div>
         </div>
         
-        <div class="flex justify-end items-center space-x-3 md:space-x-8 text-[9px] md:text-xs font-semibold uppercase tracking-widest text-gray-400">
+        <div class="hidden md:flex items-center space-x-8 text-xs font-semibold uppercase tracking-widest text-gray-400">
             <a href="#about" class="hover:text-violet-400 transition">Sobre</a>
-            <a href="#b2c" class="hover:text-violet-400 transition">B2C</a>
-            <a href="#b2b" class="hover:text-violet-400 transition">B2B</a>
-            <a href="#contact" class="text-violet-400 border-l border-white/10 pl-3 md:pl-8 hover:text-white transition">Contacto</a>
+            <a href="#b2c" class="hover:text-violet-400 transition">Residencial</a>
+            <a href="#b2b" class="hover:text-violet-400 transition">Empresarial</a>
+            <a href="#contact" class="bg-violet-600/10 text-violet-400 px-4 py-2 rounded-lg border border-violet-500/20 hover:bg-violet-600 hover:text-white transition">Contacto</a>
         </div>
 
+        <button id="menu-btn" class="md:hidden p-2 text-gray-400 hover:text-white transition" aria-label="Abrir Menu">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+        
+        <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-[#0a0510]/98 backdrop-blur-xl border-b border-white/10 flex flex-col p-8 space-y-6 md:hidden z-50">
+    <a href="#about" onclick="toggleMenu()">Sobre Nós</a>
+    <a href="#b2c" onclick="toggleMenu()">Residencial</a>
+    <a href="#b2b" onclick="toggleMenu()">Empresarial</a>
+    <a href="#contact" onclick="toggleMenu()" class="text-violet-400">Contactar</a>
+</div>
     </div>
 </nav>
 
@@ -354,9 +352,9 @@
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-bold mb-4">Contacte-nos</h2>
                 <div class="flex justify-center gap-4 mb-10">
-                    <a href="www.tiktok.com/@miad.tecnologias" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i class="fab fa-tiktok"></i></a>
-                    <a href="" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.facebook.com/profile.php?id=61552595984519" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://www.instagram.com/miad_tech/" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i class="fab fa-instagram"></i></a>
                 </div>
                 <a href="https://wa.me/+258879528500" class="flex items-center justify-center gap-3 bg-green-600 hover:bg-green-700 text-white p-4 rounded-xl font-bold transition active:scale-95 shadow-lg shadow-green-600/20 mb-12"><i class="fab fa-whatsapp text-xl"></i> Falar via WhatsApp</a>
@@ -383,6 +381,13 @@
     <footer class="py-12 text-center text-gray-500 text-xs border-t border-white/5"><p>&copy; 2026 MIADTECH. Maputo, Moçambique.</p></footer>
 
     <script>
+  const menuBtn = document.getElementById('menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+
+function toggleMenu() { 
+    mobileMenu.classList.toggle('hidden'); 
+}
+
 function toggleAccordion(element) { 
     element.classList.toggle('active'); 
 }
