@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-PT" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,39 +9,68 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
         .bg-mesh {
             background-color: #0a0510;
-            background-image: 
+            background-image:
                 radial-gradient(at 0% 0%, hsla(270, 100%, 15%, 1) 0, transparent 50%),
                 radial-gradient(at 50% 0%, hsla(250, 100%, 10%, 1) 0, transparent 50%);
         }
+
         .glass-card {
             background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(139, 92, 246, 0.1);
         }
 
- @keyframes marquee-infinite {
-    from { transform: translateX(0); }
-    to { transform: translateX(-33.333%); }
-}
+        .marquee-mask {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
 
-.marquee-wrapper {
-    display: flex;
-    width: max-content; /* Força a linha a ser ultra larga */
-    flex-wrap: nowrap;  /* Impede que os logos quebrem para a linha de baixo */
-    animation: marquee-infinite 30s linear infinite;
-}
+        .marquee-track {
+            display: flex;
+            align-items: center;
+            width: max-content;
+            will-change: transform;
+        }
 
-/* Esta classe é para o contentor que guarda o wrapper */
-.marquee-mask {
-    overflow: hidden;
-    display: flex; /* Garante que o wrapper seja lido corretamente */
-    width: 100%;
-}
+        .marquee-track img {
+            flex-shrink: 0;
+            margin-right: 3rem;
+        }
 
-/* CORREÇÃO DO ACORDIAO: Fecho Totalmente Limpo */
+        @media (min-width: 768px) {
+            .marquee-track img {
+                margin-right: 5rem;
+            }
+        }
+
+        /* Fade edges for polished look */
+        .marquee-mask::before,
+        .marquee-mask::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 80px;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .marquee-mask::before {
+            left: 0;
+            background: linear-gradient(to right, #0a0510, transparent);
+        }
+        .marquee-mask::after {
+            right: 0;
+            background: linear-gradient(to left, #0a0510, transparent);
+        }
+
+        /* CORREÇÃO DO ACORDIAO: Fecho Totalmente Limpo */
         .accordion-content {
             max-height: 0;
             overflow: hidden;
@@ -48,105 +78,131 @@
             padding-top: 0;
             padding-bottom: 0;
         }
+
         .accordion-item.active .accordion-content {
-            max-height: 500px; /* Altura suficiente para o texto */
+            max-height: 500px;
+            /* Altura suficiente para o texto */
             padding-top: 1rem;
             padding-bottom: 1.5rem;
         }
+
         .accordion-item.active .chevron-icon {
             transform: rotate(90deg);
         }
     </style>
 </head>
+
 <body class="bg-[#0a0510] text-gray-100 antialiased bg-mesh">
 
-  <nav class="fixed w-full z-50 bg-[#0a0510]/95 backdrop-blur-lg border-b border-white/5">
-    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-            <img src="MIAD LOGO ONLY NO WRITINGS.png" alt="MIADTECH" class="h-9 md:h-11 w-auto object-contain">
-            <div class="text-xl font-bold tracking-tighter text-violet-500">MIAD<span class="text-white">TECH</span></div>
-        </div>
-        
-        <div class="hidden md:flex items-center space-x-8 text-xs font-semibold uppercase tracking-widest text-gray-400">
-            <a href="#about" class="hover:text-violet-400 transition">Sobre</a>
-            <a href="#b2c" class="hover:text-violet-400 transition">Residencial</a>
-            <a href="#b2b" class="hover:text-violet-400 transition">Empresarial</a>
-            <a href="#contact" class="bg-violet-600/10 text-violet-400 px-4 py-2 rounded-lg border border-violet-500/20 hover:bg-violet-600 hover:text-white transition">Contacto</a>
-        </div>
-
-        <button id="menu-btn" class="md:hidden p-2 text-gray-400 hover:text-white transition" aria-label="Abrir Menu">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-        </button>
-        
-        <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-[#0a0510]/98 backdrop-blur-xl border-b border-white/10 flex flex-col p-8 space-y-6 md:hidden z-50">
-    <a href="#about" onclick="toggleMenu()">Sobre Nós</a>
-    <a href="#b2c" onclick="toggleMenu()">Residencial</a>
-    <a href="#b2b" onclick="toggleMenu()">Empresarial</a>
-    <a href="#contact" onclick="toggleMenu()" class="text-violet-400">Contactar</a>
-</div>
-    </div>
-</nav>
-
-<header class="relative min-h-[45vh] md:min-h-screen flex items-center pt-20 overflow-hidden">
-    <div class="absolute top-1/4 -left-20 w-64 h-64 md:w-96 md:h-96 bg-violet-600/20 blur-[80px] md:blur-[120px] rounded-full pointer-events-none"></div>
-
-    <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
-        <div class="flex flex-row items-center gap-4 md:gap-12">
-            
-            <div class="w-3/5 lg:w-1/2 text-left">
-              <span class="inline-flex items-center gap-2 py-1 px-3 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[8px] md:text-xs font-bold uppercase tracking-[0.2em] mb-4 md:mb-8 animate-[pulse_3s_infinite] shadow-[0_0_15px_rgba(139,92,246,0.1)]">
-    <span class="relative flex h-1.5 w-1.5 md:h-2 md:w-2">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-1.5 w-1.5 md:h-2 md:w-2 bg-violet-500"></span>
-    </span>
-    MIAD TECH • 2026
-</span>
-                
-                <h1 class="text-xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 md:mb-6 tracking-tight">
-                    Redes <span class="text-violet-500">Fiáveis</span>
-                </h1>
-                
-                <p class="text-[11px] sm:text-sm md:text-lg text-gray-400 mb-6 md:mb-10 max-w-md leading-relaxed font-light line-clamp-3 md:line-clamp-none">
-                    Instalação profissional de Starlink e CCTV em Maputo. A sua segurança é prioridade.
-                </p>
-                
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <a href="#contact" class="bg-violet-600 hover:bg-violet-700 text-white text-[14px] md:text-base px-2 md:px-3 py-3 md:py-4 rounded-xl font-bold transition-all shadow-lg shadow-violet-600/20 active:scale-95 text-center">
-                        Contactar
-                    </a>
- 
+    <nav class="fixed w-full z-50 bg-[#0a0510]/95 backdrop-blur-lg border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="MIAD LOGO ONLY NO WRITINGS.png" alt="MIADTECH" class="h-9 md:h-11 w-auto object-contain">
+                <div class="text-xl font-bold tracking-tighter text-violet-500">MIAD<span class="text-white">TECH</span>
                 </div>
             </div>
 
-            <div class="w-2/5 lg:w-1/2 relative">
-                <div class="absolute -inset-2 md:-inset-4 bg-violet-500/20 blur-2xl rounded-full opacity-50"></div>
-                
-                <div class="glass-card p-1.5 md:p-6 rounded-2xl md:rounded-[2.5rem] relative">
-                    <div class="relative overflow-hidden rounded-xl md:rounded-[2rem]">
-                        <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=800" 
-                             alt="Hardware" 
-                             class="w-full h-[180px] sm:h-[300px] md:h-[500px] object-cover opacity-90">
-                        
-                        <div class="absolute bottom-2 left-2 right-2 md:bottom-6 md:left-6 glass-card p-1.5 md:p-3 rounded-lg border-white/10 backdrop-blur-md">
-                            <div class="flex items-center gap-1.5 md:gap-3">
-                                <span class="relative flex h-1.5 w-1.5 md:h-2 md:w-2">
-                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                    <span class="relative inline-flex rounded-full h-1.5 w-1.5 md:h-2 md:w-2 bg-green-500"></span>
-                                </span>
-                                <span class="text-[7px] md:text-[10px] font-bold uppercase tracking-tighter text-white/90">Online</span>
+            <div
+                class="hidden md:flex items-center space-x-8 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                <a href="#about" class="hover:text-violet-400 transition">Sobre</a>
+                <a href="#b2c" class="hover:text-violet-400 transition">Residencial</a>
+                <a href="#b2b" class="hover:text-violet-400 transition">Empresarial</a>
+                <a href="#contact"
+                    class="bg-violet-600/10 text-violet-400 px-4 py-2 rounded-lg border border-violet-500/20 hover:bg-violet-600 hover:text-white transition">Contacto</a>
+            </div>
+
+            <button id="menu-btn" class="md:hidden p-2 text-gray-400 hover:text-white transition"
+                aria-label="Abrir Menu">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+
+            <div id="mobile-menu"
+                class="hidden absolute top-20 left-0 w-full bg-[#0a0510]/98 backdrop-blur-xl border-b border-white/10 flex flex-col p-8 space-y-6 md:hidden z-50">
+                <a href="#about" onclick="toggleMenu()">Sobre Nós</a>
+                <a href="#b2c" onclick="toggleMenu()">Residencial</a>
+                <a href="#b2b" onclick="toggleMenu()">Empresarial</a>
+                <a href="#contact" onclick="toggleMenu()" class="text-violet-400">Contactar</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative min-h-[45vh] md:min-h-screen flex items-center pt-20 overflow-hidden">
+        <div
+            class="absolute top-1/4 -left-20 w-64 h-64 md:w-96 md:h-96 bg-violet-600/20 blur-[80px] md:blur-[120px] rounded-full pointer-events-none">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
+            <div class="flex flex-row items-center gap-4 md:gap-12">
+
+                <div class="w-3/5 lg:w-1/2 text-left">
+                    <span
+                        class="inline-flex items-center gap-2 py-1 px-3 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[8px] md:text-xs font-bold uppercase tracking-[0.2em] mb-4 md:mb-8 animate-[pulse_3s_infinite] shadow-[0_0_15px_rgba(139,92,246,0.1)]">
+                        <span class="relative flex h-1.5 w-1.5 md:h-2 md:w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
+                            <span
+                                class="relative inline-flex rounded-full h-1.5 w-1.5 md:h-2 md:w-2 bg-violet-500"></span>
+                        </span>
+                        MIAD TECH • 2026
+                    </span>
+
+                    <h1
+                        class="text-xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 md:mb-6 tracking-tight">
+                        Redes <span class="text-violet-500">Fiáveis</span>
+                    </h1>
+
+                    <p
+                        class="text-[11px] sm:text-sm md:text-lg text-gray-400 mb-6 md:mb-10 max-w-md leading-relaxed font-light line-clamp-3 md:line-clamp-none">
+                        Instalação profissional de Starlink e CCTV em Maputo. A sua segurança é prioridade.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <a href="#contact"
+                            class="bg-violet-600 hover:bg-violet-700 text-white text-[14px] md:text-base px-2 md:px-3 py-3 md:py-4 rounded-xl font-bold transition-all shadow-lg shadow-violet-600/20 active:scale-95 text-center">
+                            Contactar
+                        </a>
+
+                    </div>
+                </div>
+
+                <div class="w-2/5 lg:w-1/2 relative">
+                    <div class="absolute -inset-2 md:-inset-4 bg-violet-500/20 blur-2xl rounded-full opacity-50"></div>
+
+                    <div class="glass-card p-1.5 md:p-6 rounded-2xl md:rounded-[2.5rem] relative">
+                        <div class="relative overflow-hidden rounded-xl md:rounded-[2rem]">
+                            <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=800"
+                                alt="Hardware"
+                                class="w-full h-[180px] sm:h-[300px] md:h-[500px] object-cover opacity-90">
+
+                            <div
+                                class="absolute bottom-2 left-2 right-2 md:bottom-6 md:left-6 glass-card p-1.5 md:p-3 rounded-lg border-white/10 backdrop-blur-md">
+                                <div class="flex items-center gap-1.5 md:gap-3">
+                                    <span class="relative flex h-1.5 w-1.5 md:h-2 md:w-2">
+                                        <span
+                                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                        <span
+                                            class="relative inline-flex rounded-full h-1.5 w-1.5 md:h-2 md:w-2 bg-green-500"></span>
+                                    </span>
+                                    <span
+                                        class="text-[7px] md:text-[10px] font-bold uppercase tracking-tighter text-white/90">Online</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
-</header>
+    </header>
     <section id="about" class="py-120 border-t border-white/5">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <h2 class="text-3xl font-bold mb-6">Sobre Nos</h2>
-            <p class="text-xl text-gray-400 leading-relaxed">A MIAD TECH é líder no fornecimento de infraestrutura de rede e soluções de conectividade em Moçambique. Especializamo-nos na venda e instalação profissional de hardware de classe mundial.</p>
+            <p class="text-xl text-gray-400 leading-relaxed">A MIAD TECH é líder no fornecimento de infraestrutura de
+                rede e soluções de conectividade em Moçambique. Especializamo-nos na venda e instalação profissional de
+                hardware de classe mundial.</p>
         </div>
     </section>
 
@@ -159,15 +215,18 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="glass-card p-6 rounded-2xl">
                     <div class="text-violet-500 mb-4 text-2xl font-bold">Starlink</div>
-                    <p class="text-gray-400 text-sm">Venda e configuração de antenas Starlink para internet em qualquer ponto do país.</p>
+                    <p class="text-gray-400 text-sm">Venda e configuração de antenas Starlink para internet em qualquer
+                        ponto do país.</p>
                 </div>
                 <div class="glass-card p-6 rounded-2xl">
                     <div class="text-violet-500 mb-4 text-2xl font-bold">Wi-Fi 6</div>
-                    <p class="text-gray-400 text-sm">Routers modernos para eliminar zonas mortas e suportar múltiplos dispositivos.</p>
+                    <p class="text-gray-400 text-sm">Routers modernos para eliminar zonas mortas e suportar múltiplos
+                        dispositivos.</p>
                 </div>
                 <div class="glass-card p-6 rounded-2xl">
                     <div class="text-violet-500 mb-4 text-2xl font-bold">Segurança</div>
-                    <p class="text-gray-400 text-sm">Vigilância integrada com acesso remoto via smartphone para a sua família.</p>
+                    <p class="text-gray-400 text-sm">Vigilância integrada com acesso remoto via smartphone para a sua
+                        família.</p>
                 </div>
                 <div class="glass-card p-6 rounded-2xl">
                     <div class="text-violet-500 mb-4 text-2xl font-bold">Suporte</div>
@@ -179,255 +238,350 @@
 
 
     <div class="py-10 bg-[#0a0510]/50 border-y border-white/5 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 mb-6 text-center lg:text-left">
-        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-500">Parceiros & Hardware</span>
-    </div>
-    
-   <div class="marquee-mask overflow-hidden py-12 bg-[#0a0510] border-y border-white/5">
-    
-    <div class="marquee-wrapper">
-        <div class="flex items-center gap-12 md:gap-24 px-6 md:px-12">
-            <img src="UBIQUITI LOGO.png" class="h-10 md:h-12  hover:opacity-100 transition">
-            <img src="HIKVISION LOGO OFICIAL.png" class="h-10 md:h-12  hover:opacity-100 transition">
-            <img src="UNV LOGO OFFICIAL.png" class="h-10 md:h-12  hover:opacity-100 transition">
-            <img src="TENDA ORANGE LOGO.png" class="h-10 md:h-12  hover:opacity-100 transition">
-            <img src="CUDY BLUE LOGO.png" class="h-10 md:h-12  hover:opacity-100 transition">
+        <div class="max-w-7xl mx-auto px-6 mb-6 text-center lg:text-left">
+            <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-500">Parceiros & Hardware</span>
         </div>
 
- <div class="flex items-center gap-12 md:gap-24 px-6 md:px-12">
-            <img src="UBIQUITI LOGO.png" class="h-10 md:h-12  hover:opacity-100 transition">
-            <img src="HIKVISION LOGO OFICIAL.png" class="h-10 md:h-12  hover:opacity-100 transition">
-            <img src="UNV LOGO OFFICIAL.png" class="h-10 md:h-12  hover:opacity-100 transition">
-            <img src="TENDA ORANGE LOGO.png" class="h-10 md:h-12  hover:opacity-100 transition">
-            <img src="CUDY BLUE LOGO.png" class="h-10 md:h-12  hover:opacity-100 transition">
+        <div class="marquee-mask py-8" id="marquee-container">
+            <div class="marquee-track" id="marquee-track">
+                <img src="UBIQUITI LOGO.png" alt="Ubiquiti" class="h-8 md:h-12 opacity-60 hover:opacity-100 transition-opacity duration-300">
+                <img src="HIKVISION LOGO OFICIAL.png" alt="Hikvision" class="h-8 md:h-12 opacity-60 hover:opacity-100 transition-opacity duration-300">
+                <img src="UNV LOGO OFFICIAL.png" alt="UNV" class="h-8 md:h-12 opacity-60 hover:opacity-100 transition-opacity duration-300">
+                <img src="TENDA LOGO BG.png" alt="Tenda" class="h-8 md:h-12 opacity-60 hover:opacity-100 transition-opacity duration-300">
+                <img src="CUDY BLUE LOGO.png" alt="Cudy" class="h-8 md:h-12 opacity-60 hover:opacity-100 transition-opacity duration-300">
+            </div>
         </div>
 
-      <div class="flex items-center gap-12 md:gap-24 px-6 md:px-12">
-            <img src="UBIQUITI LOGO.png" class="h-10 md:h-12  hover:opacity-100 transition">
-            <img src="HIKVISION LOGO OFICIAL.png" class="h-10 md:h-12  hover:opacity-100 transition">
-            <img src="UNV LOGO OFFICIAL.png" class="h-10 md:h-12  hover:opacity-100 transition">
-            <img src="TENDA ORANGE LOGO.png" class="h-10 md:h-12  hover:opacity-100 transition">
-            <img src="CUDY BLUE LOGO.png" class="h-10 md:h-12  hover:opacity-100 transition">
-        </div>
-    </div>
-</div>
 
+        <section id="b2b" class="py-10 md:py-24 bg-[#0d071a] border-y border-white/5">
+            <div class="max-w-7xl mx-auto px-4 md:px-6">
 
-   <section id="b2b" class="py-10 md:py-24 bg-[#0d071a] border-y border-white/5">
-    <div class="max-w-7xl mx-auto px-4 md:px-6">
-        
-        <div class="text-left mb-8 md:mb-12">
-            <h2 class="text-violet-500 font-bold uppercase tracking-widest text-[9px] md:text-sm mb-2">Serviços Corporativos</h2>
-            <h3 class="text-2xl md:text-4xl font-extrabold tracking-tight text-white">Soluções para Empresas</h3>
-        </div>
-
-        <div class="grid grid-cols-1 gap-3 md:gap-4">
-            
-            <div class="accordion-item glass-card rounded-xl md:rounded-[2.5rem] overflow-hidden cursor-pointer group" onclick="toggleAccordion(this)">
-                <div class="p-5 md:p-8 flex items-center justify-between transition hover:bg-white/5">
-                    <div class="flex items-center gap-3 md:gap-4">
-                        <span class="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-violet-600/20 flex items-center justify-center text-violet-400 font-bold text-[10px] md:text-xs">01</span>
-                        <h4 class="font-bold text-gray-200 text-sm md:text-xl">Hardware em Volume</h4>
-                    </div>
-                    <i class="fa-solid fa-chevron-right chevron-icon text-violet-500 text-xs md:text-base transition-transform duration-300"></i>
+                <div class="text-left mb-8 md:mb-12">
+                    <h2 class="text-violet-500 font-bold uppercase tracking-widest text-[9px] md:text-sm mb-2">Serviços
+                        Corporativos</h2>
+                    <h3 class="text-2xl md:text-4xl font-extrabold tracking-tight text-white">Soluções para Empresas
+                    </h3>
                 </div>
-                <div class="accordion-content">
-                    <div class="px-5 md:px-8 pb-6 md:pb-8 flex flex-row items-start gap-3 md:gap-8 border-t border-white/5 pt-5 md:pt-6">
-                        <div class="w-[60%] md:w-1/2">
-                            <p class="text-gray-400 text-[10px] md:text-base leading-relaxed mb-3 line-clamp-4 md:line-clamp-none">Fornecimento de hardware em larga escala para revendedores e integradores em Moçambique.</p>
-                            <ul class="text-[8px] md:text-xs text-violet-400 space-y-1 md:space-y-2 font-bold">
-                                <li><i class="fas fa-check-circle mr-1"></i> Preços de Revenda</li>
-                                <li><i class="fas fa-check-circle mr-1"></i> Stock Imediato</li>
-                            </ul>
+
+                <div class="grid grid-cols-1 gap-3 md:gap-4">
+
+                    <div class="accordion-item glass-card rounded-xl md:rounded-[2.5rem] overflow-hidden cursor-pointer group"
+                        onclick="toggleAccordion(this)">
+                        <div class="p-5 md:p-8 flex items-center justify-between transition hover:bg-white/5">
+                            <div class="flex items-center gap-3 md:gap-4">
+                                <span
+                                    class="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-violet-600/20 flex items-center justify-center text-violet-400 font-bold text-[10px] md:text-xs">01</span>
+                                <h4 class="font-bold text-gray-200 text-sm md:text-xl">Hardware em Volume</h4>
+                            </div>
+                            <i
+                                class="fa-solid fa-chevron-right chevron-icon text-violet-500 text-xs md:text-base transition-transform duration-300"></i>
                         </div>
-                        <div class="w-[40%] md:w-1/2">
-                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80&w=500" class="rounded-lg md:rounded-2xl w-full h-[100px] md:h-64 object-cover border border-white/10 shadow-lg shadow-violet-600/10">
+                        <div class="accordion-content">
+                            <div
+                                class="px-5 md:px-8 pb-6 md:pb-8 flex flex-row items-start gap-3 md:gap-8 border-t border-white/5 pt-5 md:pt-6">
+                                <div class="w-[60%] md:w-1/2">
+                                    <p
+                                        class="text-gray-400 text-[10px] md:text-base leading-relaxed mb-3 line-clamp-4 md:line-clamp-none">
+                                        Fornecimento de hardware em larga escala para revendedores e integradores em
+                                        Moçambique.</p>
+                                    <ul class="text-[8px] md:text-xs text-violet-400 space-y-1 md:space-y-2 font-bold">
+                                        <li><i class="fas fa-check-circle mr-1"></i> Preços de Revenda</li>
+                                        <li><i class="fas fa-check-circle mr-1"></i> Stock Imediato</li>
+                                    </ul>
+                                </div>
+                                <div class="w-[40%] md:w-1/2">
+                                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&q=80&w=500"
+                                        class="rounded-lg md:rounded-2xl w-full h-[100px] md:h-64 object-cover border border-white/10 shadow-lg shadow-violet-600/10">
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="accordion-item glass-card rounded-xl md:rounded-[2.5rem] overflow-hidden cursor-pointer group"
+                        onclick="toggleAccordion(this)">
+                        <div class="p-5 md:p-8 flex items-center justify-between transition hover:bg-white/5">
+                            <div class="flex items-center gap-3 md:gap-4">
+                                <span
+                                    class="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-violet-600/20 flex items-center justify-center text-violet-400 font-bold text-[10px] md:text-xs">02</span>
+                                <h4 class="font-bold text-gray-200 text-sm md:text-xl">Redes Estruturadas</h4>
+                            </div>
+                            <i
+                                class="fa-solid fa-chevron-right chevron-icon text-violet-500 text-xs md:text-base transition-transform duration-300"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div
+                                class="px-5 md:px-8 pb-6 md:pb-8 flex flex-row items-start gap-3 md:gap-8 border-t border-white/5 pt-5 md:pt-6">
+                                <div class="w-[60%] md:w-1/2">
+                                    <p
+                                        class="text-gray-400 text-[10px] md:text-base leading-relaxed mb-3 line-clamp-4 md:line-clamp-none">
+                                        Planeamento de racks e cablagem CAT6/7 para garantir performance máxima.</p>
+                                    <ul class="text-[8px] md:text-xs text-violet-400 space-y-1 md:space-y-2 font-bold">
+                                        <li><i class="fas fa-check-circle mr-1"></i> Certificação de Pontos</li>
+                                        <li><i class="fas fa-check-circle mr-1"></i> Organização Profissional</li>
+                                    </ul>
+                                </div>
+                                <div class="w-[40%] md:w-1/2">
+                                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=500"
+                                        class="rounded-lg md:rounded-2xl w-full h-[100px] md:h-64 object-cover border border-white/10 shadow-lg shadow-violet-600/10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item glass-card rounded-xl md:rounded-[2.5rem] overflow-hidden cursor-pointer group"
+                        onclick="toggleAccordion(this)">
+                        <div class="p-5 md:p-8 flex items-center justify-between transition hover:bg-white/5">
+                            <div class="flex items-center gap-3 md:gap-4">
+                                <span
+                                    class="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-violet-600/20 flex items-center justify-center text-violet-400 font-bold text-[10px] md:text-xs">03</span>
+                                <h4 class="font-bold text-gray-200 text-sm md:text-xl">Manutenção Estratégica</h4>
+                            </div>
+                            <i
+                                class="fa-solid fa-chevron-right chevron-icon text-violet-500 text-xs md:text-base transition-transform duration-300"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div
+                                class="px-5 md:px-8 pb-6 md:pb-8 flex flex-row items-start gap-3 md:gap-8 border-t border-white/5 pt-5 md:pt-6">
+                                <div class="w-[60%] md:w-1/2">
+                                    <p
+                                        class="text-gray-400 text-[10px] md:text-base leading-relaxed mb-3 line-clamp-4 md:line-clamp-none">
+                                        Suporte proativo e auditorias de rede para zero tempo de inatividade.</p>
+                                    <ul class="text-[8px] md:text-xs text-violet-400 space-y-1 md:space-y-2 font-bold">
+                                        <li><i class="fas fa-check-circle mr-1"></i> SLA de Resposta Rápida</li>
+                                        <li><i class="fas fa-check-circle mr-1"></i> Suporte Técnico 24/7</li>
+                                    </ul>
+                                </div>
+                                <div class="w-[40%] md:w-1/2">
+                                    <img src="https://images.unsplash.com/photo-1581092921461-eab62e92c73e?auto=format&fit=crop&q=80&w=500"
+                                        class="rounded-lg md:rounded-2xl w-full h-[100px] md:h-64 object-cover border border-white/10 shadow-lg shadow-violet-600/10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item glass-card rounded-xl md:rounded-[2.5rem] overflow-hidden cursor-pointer group"
+                        onclick="toggleAccordion(this)">
+                        <div class="p-5 md:p-8 flex items-center justify-between transition hover:bg-white/5">
+                            <div class="flex items-center gap-3 md:gap-4">
+                                <span
+                                    class="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-violet-600/20 flex items-center justify-center text-violet-400 font-bold text-[10px] md:text-xs">04</span>
+                                <h4 class="font-bold text-gray-200 text-sm md:text-xl">Videovigilância (CCTV)</h4>
+                            </div>
+                            <i
+                                class="fa-solid fa-chevron-right chevron-icon text-violet-500 text-xs md:text-base transition-transform duration-300"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div
+                                class="px-5 md:px-8 pb-6 md:pb-8 flex flex-row items-start gap-3 md:gap-8 border-t border-white/5 pt-5 md:pt-6">
+                                <div class="w-[60%] md:w-1/2">
+                                    <p
+                                        class="text-gray-400 text-[10px] md:text-base leading-relaxed mb-3 line-clamp-4 md:line-clamp-none">
+                                        Câmaras IP inteligentes com monitorização remota e alta definição.</p>
+                                    <ul class="text-[8px] md:text-xs text-violet-400 space-y-1 md:space-y-2 font-bold">
+                                        <li><i class="fas fa-check-circle mr-1"></i> Visualização Mobile</li>
+                                        <li><i class="fas fa-check-circle mr-1"></i> IA de Detecção</li>
+                                    </ul>
+                                </div>
+                                <div class="w-[40%] md:w-1/2">
+                                    <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&q=80&w=500"
+                                        class="rounded-lg md:rounded-2xl w-full h-[100px] md:h-64 object-cover border border-white/10 shadow-lg shadow-violet-600/10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item glass-card rounded-xl md:rounded-[2.5rem] overflow-hidden cursor-pointer group"
+                        onclick="toggleAccordion(this)">
+                        <div class="p-5 md:p-8 flex items-center justify-between transition hover:bg-white/5">
+                            <div class="flex items-center gap-3 md:gap-4">
+                                <span
+                                    class="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-violet-600/20 flex items-center justify-center text-violet-400 font-bold text-[10px] md:text-xs">05</span>
+                                <h4 class="font-bold text-gray-200 text-sm md:text-xl">Controlo de Acesso</h4>
+                            </div>
+                            <i
+                                class="fa-solid fa-chevron-right chevron-icon text-violet-500 text-xs md:text-base transition-transform duration-300"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div
+                                class="px-5 md:px-8 pb-6 md:pb-8 flex flex-row items-start gap-3 md:gap-8 border-t border-white/5 pt-5 md:pt-6">
+                                <div class="w-[60%] md:w-1/2">
+                                    <p
+                                        class="text-gray-400 text-[10px] md:text-base leading-relaxed mb-3 line-clamp-4 md:line-clamp-none">
+                                        Sistemas biométricos e RFID para gestão inteligente de entradas.</p>
+                                    <ul class="text-[8px] md:text-xs text-violet-400 space-y-1 md:space-y-2 font-bold">
+                                        <li><i class="fas fa-check-circle mr-1"></i> Biometria & Facial</li>
+                                        <li><i class="fas fa-check-circle mr-1"></i> Gestão de Assiduidade</li>
+                                    </ul>
+                                </div>
+                                <div class="w-[40%] md:w-1/2">
+                                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=500"
+                                        class="rounded-lg md:rounded-2xl w-full h-[100px] md:h-64 object-cover border border-white/10 shadow-lg shadow-violet-600/10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
+        </section>
 
-            <div class="accordion-item glass-card rounded-xl md:rounded-[2.5rem] overflow-hidden cursor-pointer group" onclick="toggleAccordion(this)">
-                <div class="p-5 md:p-8 flex items-center justify-between transition hover:bg-white/5">
-                    <div class="flex items-center gap-3 md:gap-4">
-                        <span class="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-violet-600/20 flex items-center justify-center text-violet-400 font-bold text-[10px] md:text-xs">02</span>
-                        <h4 class="font-bold text-gray-200 text-sm md:text-xl">Redes Estruturadas</h4>
+        <section id="contact" class="py-12">
+            <div class="max-w-3xl mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold mb-4">Contacte-nos</h2>
+                    <div class="flex justify-center gap-4 mb-10">
+                        <a href="#"
+                            class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i
+                                class="fab fa-tiktok"></i></a>
+                        <a href="#"
+                            class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i
+                                class="fab fa-linkedin-in"></i></a>
+                        <a href="#"
+                            class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/miad_tech/"
+                            class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i
+                                class="fab fa-instagram"></i></a>
                     </div>
-                    <i class="fa-solid fa-chevron-right chevron-icon text-violet-500 text-xs md:text-base transition-transform duration-300"></i>
+                    <a href="https://wa.me/+258879528500"
+                        class="flex items-center justify-center gap-3 bg-green-600 hover:bg-green-700 text-white p-4 rounded-xl font-bold transition active:scale-95 shadow-lg shadow-green-600/20 mb-12"><i
+                            class="fab fa-whatsapp text-xl"></i> Falar via WhatsApp</a>
                 </div>
-                <div class="accordion-content">
-                    <div class="px-5 md:px-8 pb-6 md:pb-8 flex flex-row items-start gap-3 md:gap-8 border-t border-white/5 pt-5 md:pt-6">
-                        <div class="w-[60%] md:w-1/2">
-                            <p class="text-gray-400 text-[10px] md:text-base leading-relaxed mb-3 line-clamp-4 md:line-clamp-none">Planeamento de racks e cablagem CAT6/7 para garantir performance máxima.</p>
-                            <ul class="text-[8px] md:text-xs text-violet-400 space-y-1 md:space-y-2 font-bold">
-                                <li><i class="fas fa-check-circle mr-1"></i> Certificação de Pontos</li>
-                                <li><i class="fas fa-check-circle mr-1"></i> Organização Profissional</li>
-                            </ul>
-                        </div>
-                        <div class="w-[40%] md:w-1/2">
-                            <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=500" class="rounded-lg md:rounded-2xl w-full h-[100px] md:h-64 object-cover border border-white/10 shadow-lg shadow-violet-600/10">
-                        </div>
+                <form id="miad-form" action="https://formspree.io/f/mpqyanwg" method="POST"
+                    class="glass-card p-6 md:p-10 rounded-3xl space-y-6 text-left">
+                    <div id="form-status" class="hidden p-4 rounded-xl text-center font-bold mb-6"></div>
+                    <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-widest text-gray-500 font-bold">Nome Completo</label>
+                        <input type="text" name="nome" required
+                            class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-violet-500 outline-none transition text-white">
                     </div>
-                </div>
+                    <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-widest text-gray-500 font-bold">E-mail</label>
+                        <input type="email" name="email" required
+                            class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-violet-500 outline-none transition text-white">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-widest text-gray-500 font-bold">Mensagem</label>
+                        <textarea name="mensagem" rows="4" required
+                            class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-violet-500 outline-none transition text-white"></textarea>
+                    </div>
+                    <button type="submit-btn" id="submit"
+                        class="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-violet-600/20 active:scale-95">Enviar
+                        Mensagem</button>
+                </form>
             </div>
+        </section>
 
-            <div class="accordion-item glass-card rounded-xl md:rounded-[2.5rem] overflow-hidden cursor-pointer group" onclick="toggleAccordion(this)">
-                <div class="p-5 md:p-8 flex items-center justify-between transition hover:bg-white/5">
-                    <div class="flex items-center gap-3 md:gap-4">
-                        <span class="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-violet-600/20 flex items-center justify-center text-violet-400 font-bold text-[10px] md:text-xs">03</span>
-                        <h4 class="font-bold text-gray-200 text-sm md:text-xl">Manutenção Estratégica</h4>
-                    </div>
-                    <i class="fa-solid fa-chevron-right chevron-icon text-violet-500 text-xs md:text-base transition-transform duration-300"></i>
-                </div>
-                <div class="accordion-content">
-                    <div class="px-5 md:px-8 pb-6 md:pb-8 flex flex-row items-start gap-3 md:gap-8 border-t border-white/5 pt-5 md:pt-6">
-                        <div class="w-[60%] md:w-1/2">
-                            <p class="text-gray-400 text-[10px] md:text-base leading-relaxed mb-3 line-clamp-4 md:line-clamp-none">Suporte proativo e auditorias de rede para zero tempo de inatividade.</p>
-                            <ul class="text-[8px] md:text-xs text-violet-400 space-y-1 md:space-y-2 font-bold">
-                                <li><i class="fas fa-check-circle mr-1"></i> SLA de Resposta Rápida</li>
-                                <li><i class="fas fa-check-circle mr-1"></i> Suporte Técnico 24/7</li>
-                            </ul>
-                        </div>
-                        <div class="w-[40%] md:w-1/2">
-                            <img src="https://images.unsplash.com/photo-1581092921461-eab62e92c73e?auto=format&fit=crop&q=80&w=500" class="rounded-lg md:rounded-2xl w-full h-[100px] md:h-64 object-cover border border-white/10 shadow-lg shadow-violet-600/10">
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <footer class="py-12 text-center text-gray-500 text-xs border-t border-white/5">
+            <p>&copy; 2026 MIADTECH. Maputo, Moçambique.</p>
+        </footer>
 
-            <div class="accordion-item glass-card rounded-xl md:rounded-[2.5rem] overflow-hidden cursor-pointer group" onclick="toggleAccordion(this)">
-                <div class="p-5 md:p-8 flex items-center justify-between transition hover:bg-white/5">
-                    <div class="flex items-center gap-3 md:gap-4">
-                        <span class="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-violet-600/20 flex items-center justify-center text-violet-400 font-bold text-[10px] md:text-xs">04</span>
-                        <h4 class="font-bold text-gray-200 text-sm md:text-xl">Videovigilância (CCTV)</h4>
-                    </div>
-                    <i class="fa-solid fa-chevron-right chevron-icon text-violet-500 text-xs md:text-base transition-transform duration-300"></i>
-                </div>
-                <div class="accordion-content">
-                    <div class="px-5 md:px-8 pb-6 md:pb-8 flex flex-row items-start gap-3 md:gap-8 border-t border-white/5 pt-5 md:pt-6">
-                        <div class="w-[60%] md:w-1/2">
-                            <p class="text-gray-400 text-[10px] md:text-base leading-relaxed mb-3 line-clamp-4 md:line-clamp-none">Câmaras IP inteligentes com monitorização remota e alta definição.</p>
-                            <ul class="text-[8px] md:text-xs text-violet-400 space-y-1 md:space-y-2 font-bold">
-                                <li><i class="fas fa-check-circle mr-1"></i> Visualização Mobile</li>
-                                <li><i class="fas fa-check-circle mr-1"></i> IA de Detecção</li>
-                            </ul>
-                        </div>
-                        <div class="w-[40%] md:w-1/2">
-                            <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&q=80&w=500" class="rounded-lg md:rounded-2xl w-full h-[100px] md:h-64 object-cover border border-white/10 shadow-lg shadow-violet-600/10">
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <script>
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
 
-            <div class="accordion-item glass-card rounded-xl md:rounded-[2.5rem] overflow-hidden cursor-pointer group" onclick="toggleAccordion(this)">
-                <div class="p-5 md:p-8 flex items-center justify-between transition hover:bg-white/5">
-                    <div class="flex items-center gap-3 md:gap-4">
-                        <span class="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-violet-600/20 flex items-center justify-center text-violet-400 font-bold text-[10px] md:text-xs">05</span>
-                        <h4 class="font-bold text-gray-200 text-sm md:text-xl">Controlo de Acesso</h4>
-                    </div>
-                    <i class="fa-solid fa-chevron-right chevron-icon text-violet-500 text-xs md:text-base transition-transform duration-300"></i>
-                </div>
-                <div class="accordion-content">
-                    <div class="px-5 md:px-8 pb-6 md:pb-8 flex flex-row items-start gap-3 md:gap-8 border-t border-white/5 pt-5 md:pt-6">
-                        <div class="w-[60%] md:w-1/2">
-                            <p class="text-gray-400 text-[10px] md:text-base leading-relaxed mb-3 line-clamp-4 md:line-clamp-none">Sistemas biométricos e RFID para gestão inteligente de entradas.</p>
-                            <ul class="text-[8px] md:text-xs text-violet-400 space-y-1 md:space-y-2 font-bold">
-                                <li><i class="fas fa-check-circle mr-1"></i> Biometria & Facial</li>
-                                <li><i class="fas fa-check-circle mr-1"></i> Gestão de Assiduidade</li>
-                            </ul>
-                        </div>
-                        <div class="w-[40%] md:w-1/2">
-                            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=500" class="rounded-lg md:rounded-2xl w-full h-[100px] md:h-64 object-cover border border-white/10 shadow-lg shadow-violet-600/10">
-                        </div>
-                    </div>
-                </div>
-            </div>
+            function toggleMenu() {
+                mobileMenu.classList.toggle('hidden');
+            }
 
-        </div>
-    </div>
-</section>
+            function toggleAccordion(element) {
+                element.classList.toggle('active');
+            }
 
-    <section id="contact" class="py-12">
-        <div class="max-w-3xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold mb-4">Contacte-nos</h2>
-                <div class="flex justify-center gap-4 mb-10">
-                    <a href="#" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i class="fab fa-tiktok"></i></a>
-                    <a href="#" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/miad_tech/" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all"><i class="fab fa-instagram"></i></a>
-                </div>
-                <a href="https://wa.me/+258879528500" class="flex items-center justify-center gap-3 bg-green-600 hover:bg-green-700 text-white p-4 rounded-xl font-bold transition active:scale-95 shadow-lg shadow-green-600/20 mb-12"><i class="fab fa-whatsapp text-xl"></i> Falar via WhatsApp</a>
-            </div>
-           <form id="miad-form" action="https://formspree.io/f/mpqyanwg" method="POST" class="glass-card p-6 md:p-10 rounded-3xl space-y-6 text-left">
-            <div id="form-status" class="hidden p-4 rounded-xl text-center font-bold mb-6"></div>
-    <div class="space-y-2">
-        <label class="text-xs uppercase tracking-widest text-gray-500 font-bold">Nome Completo</label>
-        <input type="text" name="nome" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-violet-500 outline-none transition text-white">
-    </div>
-    <div class="space-y-2">
-        <label class="text-xs uppercase tracking-widest text-gray-500 font-bold">E-mail</label>
-        <input type="email" name="email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-violet-500 outline-none transition text-white">
-    </div>
-    <div class="space-y-2">
-        <label class="text-xs uppercase tracking-widest text-gray-500 font-bold">Mensagem</label>
-        <textarea name="mensagem" rows="4" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:border-violet-500 outline-none transition text-white"></textarea>
-    </div>
-    <button type="submit-btn" id="submit" class="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-violet-600/20 active:scale-95">Enviar Mensagem</button>
-</form>
-        </div>
-    </section>
+            menuBtn.addEventListener('click', toggleMenu);
 
-    <footer class="py-12 text-center text-gray-500 text-xs border-t border-white/5"><p>&copy; 2026 MIADTECH. Maputo, Moçambique.</p></footer>
+            // MARQUEE INFINITO — JS requestAnimationFrame
+            (function initMarquee() {
+                const track = document.getElementById('marquee-track');
+                const container = document.getElementById('marquee-container');
+                if (!track || !container) return;
 
-    <script>
-  const menuBtn = document.getElementById('menu-btn');
-const mobileMenu = document.getElementById('mobile-menu');
+                let paused = false;
+                container.addEventListener('mouseenter', () => paused = true);
+                container.addEventListener('mouseleave', () => paused = false);
 
-function toggleMenu() { 
-    mobileMenu.classList.toggle('hidden'); 
-}
+                // Wait for images to load (or fail) so we can measure widths
+                const images = track.querySelectorAll('img');
+                let loaded = 0;
+                const total = images.length;
 
-function toggleAccordion(element) { 
-    element.classList.toggle('active'); 
-}
+                function onReady() {
+                    // Measure one full set width
+                    const setWidth = track.scrollWidth;
+                    const originalHTML = track.innerHTML;
 
-menuBtn.addEventListener('click', toggleMenu);
+                    // Always clone at least 6 full copies so the viewport
+                    // is ALWAYS filled — no gaps even on ultra-wide screens
+                    const minClones = Math.max(6, Math.ceil(container.offsetWidth / setWidth) + 3);
+                    for (let i = 0; i < minClones; i++) {
+                        track.innerHTML += originalHTML;
+                    }
 
-// LÓGICA DE ENVIO SEM REDIRECIONAMENTO
-const form = document.getElementById("miad-form");
-const status = document.getElementById("form-status");
-const button = document.getElementById("submit");
+                    // Animate at consistent speed using requestAnimationFrame
+                    let offset = 0;
+                    const speed = 1; // pixels per frame (~60px/s at 60fps)
 
-if (form) {
-    form.addEventListener("submit", async function(event) {
-        event.preventDefault(); 
-        button.disabled = true;
-        button.innerText = "A enviar...";
-        
-        const data = new FormData(event.target);
-        const response = await fetch(event.target.action, {
-            method: form.method,
-            body: data,
-            headers: { 'Accept': 'application/json' }
-        });
+                    function animate() {
+                        if (!paused) {
+                            offset += speed;
+                            // Reset seamlessly — since we have many clones,
+                            // the next identical set is already visible
+                            if (offset >= setWidth) {
+                                offset -= setWidth;
+                            }
+                            track.style.transform = 'translateX(-' + offset + 'px)';
+                        }
+                        requestAnimationFrame(animate);
+                    }
+                    requestAnimationFrame(animate);
+                }
 
-        if (response.ok) {
-            status.innerText = "Sucesso! Recebemos a sua mensagem.";
-            status.classList.remove("hidden", "bg-red-500/20", "text-red-400");
-            status.classList.add("bg-green-500/20", "text-green-400");
-            form.reset(); 
-            button.innerText = "Enviar Mensagem";
-            button.disabled = false;
-        } else {
-            status.innerText = "Verifique se o E-mail foi inserido correctamente ou tente novamente. Caso o problema persista, contacte-nos pelo WhatsApp.";
-            status.classList.remove("hidden", "bg-green-500/20", "text-green-400");
-            status.classList.add("bg-red-500/20", "text-red-400");
-            button.disabled = false;
-            button.innerText = "Tentar Novamente";
-        } 
-    });
-}
-    </script>
+                images.forEach(img => {
+                    if (img.complete) {
+                        loaded++;
+                    } else {
+                        img.addEventListener('load', () => { loaded++; if (loaded === total) onReady(); });
+                        img.addEventListener('error', () => { loaded++; if (loaded === total) onReady(); });
+                    }
+                });
+                if (loaded === total) onReady();
+            })();
+
+            // LÓGICA DE ENVIO SEM REDIRECIONAMENTO
+            const form = document.getElementById("miad-form");
+            const status = document.getElementById("form-status");
+            const button = document.getElementById("submit");
+
+            if (form) {
+                form.addEventListener("submit", async function (event) {
+                    event.preventDefault();
+                    button.disabled = true;
+                    button.innerText = "A enviar...";
+
+                    const data = new FormData(event.target);
+                    const response = await fetch(event.target.action, {
+                        method: form.method,
+                        body: data,
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (response.ok) {
+                        status.innerText = "Sucesso! Recebemos a sua mensagem.";
+                        status.classList.remove("hidden", "bg-red-500/20", "text-red-400");
+                        status.classList.add("bg-green-500/20", "text-green-400");
+                        form.reset();
+                        button.innerText = "Enviar Mensagem";
+                        button.disabled = false;
+                    } else {
+                        status.innerText = "Verifique se o E-mail foi inserido correctamente ou tente novamente. Caso o problema persista, contacte-nos pelo WhatsApp.";
+                        status.classList.remove("hidden", "bg-green-500/20", "text-green-400");
+                        status.classList.add("bg-red-500/20", "text-red-400");
+                        button.disabled = false;
+                        button.innerText = "Tentar Novamente";
+                    }
+                });
+            }
+        </script>
 </body>
+
 </html>
